@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="../static/ofo.png">
+    <img src="./assets/logo.png">
     <!--wsq-query></wsq-query-->
     <router-view></router-view>
   </div>
