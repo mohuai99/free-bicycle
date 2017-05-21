@@ -22,8 +22,11 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin-top: 60px;
+  margin-top: 2rem;
   width: 100%;
   font-size:24px;
+}
+#app img {
+    width: 120px;
 }
 </style>
