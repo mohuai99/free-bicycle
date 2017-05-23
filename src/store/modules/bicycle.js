@@ -19,7 +19,10 @@ const actions = {
     getQuery({ commit }, cartNumber) {
         return new Promise(function(resolve, reject) {
             Bicycle.queryPassword(cartNumber).then(result => {
-                commit(types.CART_QUERY_HISTORY, result.data);
+                const { code, data } = result;
+                if (code === 200 && data.length > 0) {
+                    commit(types.CART_QUERY_HISTORY, result.data);
+                }
                 resolve(result);
             }).catch(result => {
                 reject(result);
@@ -28,6 +31,36 @@ const actions = {
     },
     getHistory({ commit }, lists) {
         commit(types.CART_INIT_HISTORY, lists);
+    },
+    isExist({}, cartNumber) {
+        return new Promise((resolve, reject) => {
+            Bicycle.queryPassword(cartNumber).then(result => {
+                const { code, data } = result;
+                if (code === 200 && data.length > 0) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            }).catch(result => {
+                reject(result);
+            })
+        });
+    },
+    addRecord({ commit }, item) {
+        return new Promise((resolve, reject) => {
+            Bicycle.insert(item).then(result => {
+                const { code, data } = result;
+                item.id = data.insertId;
+                if (code === 200 && data.affectedRows > 0) {
+                    commit(types.ADD_CART_NUMBER, item);
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            }).catch(result => {
+                reject(result);
+            })
+        });
     }
 }
 
@@ -50,6 +83,9 @@ const mutations = {
     },
     [types.CART_INIT_HISTORY](state, list) {
         state.history = list;
+    },
+    [types.ADD_CART_NUMBER](state, data) {
+        state.all.push(data);
     }
 }
 

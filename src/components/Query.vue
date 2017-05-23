@@ -42,7 +42,6 @@
                 // state 查询不到则继续查询数据库，然后把记录写入state 并存入用户的 localstorage
                 const key = this.cartNumber;
                 if(this.regNumber(key, true)){
-                    debugger;
                     let record = this.queryFromHistoryList(key);
                     if(!record){
                         this.$store.dispatch('getQuery', key).then((result) => {
@@ -53,7 +52,6 @@
                                 this.$message.error('系统暂无该数据！');
                             }
                         }).catch((result) => {
-                            debugger;
                             this.$message.error(result.status +'  '+ result.statusText);
                         });
                     }else{
@@ -77,13 +75,22 @@
                     return false;
                 }
 
-                if(this.historyList.hasOwnProperty(key)){
-                    this.$message.info('该记录已存在！');
-                    return false;
-                }
+                this.$store.dispatch('isExist', key).then((result) => {
+                    if(!result){
+                        const item = {cartNumber: key, cartPassword: pwd};
+                        this.$store.dispatch('addRecord', item).then((data) => {
+                            this.$message.success('记录添加成功！');
+                        }).catch(() => {
+                            this.$message.error('记录添加失败，请稍后再试！');
+                        });
+                    }else{
+                        this.$message.error('该记录已存在！');
+                        return false;
+                    }
+                });
 
                 
-                this.$message.success('记录添加成功！');
+                
             },
             handleClear() {
                 this.cartNumber = '';

@@ -8,14 +8,14 @@ module.exports = {
         // currpage = parseInt(currpage, 10);
         // pagesize = parseInt(pagesize, 10);
         // (currpage - 1) * pagesize, pagesize
-        DB.execSql(DB.getPool, SQL.bicycle.getListsSql(true), [], res)
+        DB.execSql(DB.getPool, SQL.bicycle.getListsSql(true), [], res);
     },
     add(req, res) {
         const body = req.body
         let args = []
         Object.keys(body).forEach((item) => {
             args.push(body[item])
-        })
+        });
         DB.execSql(DB.getPool, SQL.bicycle.getAddSql(), args, res)
     },
     update(req, res) {

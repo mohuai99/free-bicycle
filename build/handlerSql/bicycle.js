@@ -17,7 +17,7 @@ module.exports = {
         return _sql;
     },
     getQuerySql() {
-        const _sql = 'select id, carnumber, carpassword from tbl_bicycle where carnumber=?';
+        const _sql = 'select id, carnumber, carpassword from tbl_bicycle where carnumber=? limit 1';
         return _sql;
     },
     getTotalSql() {
