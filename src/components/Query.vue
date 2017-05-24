@@ -2,18 +2,18 @@
   <div class="page">
     <el-row class="row">
         <el-col :span="20" :offset="2">
-            <el-input type="number" placeholder="请输入单车编号" v-model.number="cartNumber" @focus="handleClear"></el-input>
+            <el-input type="number" :placeholder="$wsq_i18n('$i18n.carnumber')" v-model.number="cartNumber" @focus="handleClear"></el-input>
         </el-col>
     </el-row>
     <el-row class="row">
         <el-col :span="20" :offset="2">
-            <el-input type="number" placeholder="开锁密码" v-model.number="password"></el-input>
+            <el-input type="number" :placeholder="$wsq_i18n('$i18n.password')" v-model.number="password"></el-input>
         </el-col>
     </el-row>
     <el-row class="row">
         <el-col :span="20" :offset="2" class="btn">
-            <el-button type="primary" @click="handleQuery">查询</el-button>
-            <el-button @click="handleAdd">添加</el-button>
+            <el-button type="primary" @click="handleQuery">{{$wsq_i18n('$i18n.query')}}</el-button>
+            <el-button @click="handleAdd">{{$wsq_i18n('$i18n.add')}}</el-button>
         </el-col>
     </el-row>
   </div>
